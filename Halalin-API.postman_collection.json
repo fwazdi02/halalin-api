@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "01a6ce37-77a9-43ab-8638-2660b42e1fb4",
+		"name": "Halalin-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7581519"
+	},
+	"item": [
+		{
+			"name": "Add Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"AA\",\r\n    \"code\":\"AA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/product",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Param",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"param_key\":\"BAHAN_BAKU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/meta-param",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"meta-param"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add ProductConfig",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_id\":\"AA\",\r\n    \"config_id\":\"62e8c42388fbad2093e5bd6b\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/product-config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"product-config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Config",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"1 - 10\",\r\n    \"param_key\":\"BAHAN_BAKU\",\r\n    \"mandays\":1,\r\n    \"index_min\":1,\r\n    \"index_max\":10,\r\n    \"price\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/meta-config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"meta-config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Caculate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_code\":\"AA\",\r\n    \"details\":[\r\n        {\"VARIAN\":9},\r\n        {\"BAHAN_BAKU\":8}  \r\n    ]\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/calculate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"calculate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProductConfig List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/product-config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"product-config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Config List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/meta-config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"meta-config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Param List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/meta-param",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"meta-param"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/product",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
