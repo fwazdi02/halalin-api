@@ -64,16 +64,29 @@ const getParam = (_validation, _details, _product) => {
                 if (typeof val == "number" && val >= 0) {
                     const _allParams = await Config.find({ product_id: _product._id }).populate("param_id")
                     console.log("prop : ", prop)
-                    let _params = _allParams.filter((single) => {
+
+                    // validatin-max-input
+                    let _paramMax = _allParams.filter((single) => {
                         if (single.param_id.param_key == prop) {
                             return single
                         }
                     })
+
+                    let xParamMax = Math.max(..._paramMax.map((o) => o.index_min))
+                    let objParamMax = _paramMax.find((o) => o.index_min === xParamMax)
+                    if (val > objParamMax.index_max) {
+                        reject(`${prop} maximum value is : ${objParamMax.index_max}`)
+                    }
+                    // validatin-max-input
+
+                    let _params = _allParams.filter((single) => {
+                        if (single.param_id.param_key == prop && val >= single.index_min && val <= single.index_max) {
+                            return single
+                        }
+                    })
+
                     let xMax = Math.max(..._params.map((o) => o.index_min))
                     let objMax = _params.find((o) => o.index_min === xMax)
-                    if (val > objMax.index_max) {
-                        reject(`${prop} maximum value is : ${objMax.index_max}`)
-                    }
                     sumArray.push({
                         name: prop,
                         category: objMax.name,
