@@ -15,6 +15,7 @@ const apiRouter = require("./routes/api")
 const indexRouter = require("./routes/index")
 
 const dashboardController = require("./controllers/DashboardController")
+const { authMiddleware } = require("./middlewares/auth")
 
 const api = createApiRouter()
 app.use(cors())
@@ -60,7 +61,7 @@ app.use(function (req, res, next) {
 })
 
 app.use("/", indexRouter)
-app.use("/dashboard", dashboardController)
+app.use("/dashboard", authMiddleware, dashboardController)
 
 function createApiRouter() {
     var router = new express.Router()

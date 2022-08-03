@@ -27,9 +27,6 @@ router.get("/login", function (req, res) {
 })
 
 router.post("/login", async function (req, res) {
-    // if (req.session.user) {
-    //     res.redirect("/dashboard")
-    // }
     const validate = LoginValidation.validate(req.body)
     if (validate.error) {
         const errors = getValidationError(validate.error.details)

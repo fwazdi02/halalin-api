@@ -3,8 +3,9 @@ extends layout
 block content
   div(class="w-1/3 mx-auto bg-white px-4 py-5 rounded-lg mt-12")
     form(action="/login", method="post")
-        p.text-lg.mb-4.font-bold Login
-        div.my-4.text-gray-500
+        p.text-xl.mb-2.font-bold Halal_in 
+        p.text-md.mb-4.font-bold.text-gray-500 Please Login Your Account 
+        div.my-4
             input(type="hidden", name="_csrf" "value"=csrfToken)
             div.mb-3
                 label.mb-2.block.font-bold Username 
