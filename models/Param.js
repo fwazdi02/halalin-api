@@ -3,7 +3,7 @@ const { Schema } = mongoose
 
 const paramsSchema = new Schema(
     {
-        param_key: String,
+        param_key: { type: String, unique: true },
         description: { type: String, default: "" }
     },
     {

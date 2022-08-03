@@ -12,7 +12,7 @@ const getValidationError = (details) => {
 
 app.get("/", async (req, res) => {
     const params = await Param.find()
-    res.json({ error: false, message: "Success", data: params })
+    res.json({ success: true, message: "Success", data: params })
 })
 
 app.delete("/", async (req, res) => {

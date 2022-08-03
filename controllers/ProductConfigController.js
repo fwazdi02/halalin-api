@@ -14,7 +14,7 @@ const getValidationError = (details) => {
 
 app.get("/", async (req, res) => {
     const configs = await ProductConfig.find().populate(["product_id", "config_id"])
-    res.json({ error: false, message: "Success", data: configs })
+    res.json({ success: true, message: "Success", data: configs })
 })
 
 app.delete("/", async (req, res) => {

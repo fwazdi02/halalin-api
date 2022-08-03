@@ -126,11 +126,6 @@ app.post("/", async (req, res) => {
         res.json({ success: false, message: "Config doesn't exist" })
     }
 
-    // console.log("------config-----")
-    // console.log(config)
-    // console.log("------config-----")
-    // res.json(200)
-
     let _set = new Set()
     const validation = config.reduce(function (acc, obj) {
         acc.add(obj.param_id.param_key)

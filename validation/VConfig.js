@@ -7,10 +7,10 @@ const ConfigValidation = Joi.object({
     index_min: Joi.number().required(),
     index_max: Joi.number().required(),
     price: Joi.number().required()
-})
+}).unknown()
 
 const ConfigDeleteValidation = Joi.object({
     id: Joi.string().required()
-})
+}).unknown()
 
 module.exports = { ConfigValidation, ConfigDeleteValidation }
