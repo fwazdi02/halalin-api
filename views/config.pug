@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    div.p-6
+        div.bg-white.p-6.rounded-lg
+            p.text-xl.font-bold.mb-8 Welcome, #{username} 
+            include navbar.pug
+            p.text-lg.font-bold.mb-4.mt-12 Table Config
+                a(href="config/create" class="bg-blue-200 px-3 py-2 rounded-lg ml-5") Create Config 
+            table.w-full.mb-4
+                tr
+                    td.p-2.font-bold ID 
+                    td.p-2.font-bold Name 
+                    td.p-2.font-bold Param Key
+                    td.p-2.font-bold Mandays
+                    td.p-2.font-bold Index Min
+                    td.p-2.font-bold Index Max
+                    td.p-2.font-bold Price
+                    td.p-2.font-bold Action
+                if data
+                    each item in data
+                        tr
+                            td.p-2 #{item._id}
+                            td.p-2 #{item.name}
+                            td.p-2 #{item.param_id ? item.param_id.param_key + ' - (' + item.param_id._id +')' : '-'}
+                            td.p-2 #{item.mandays}
+                            td.p-2 #{item.index_min}
+                            td.p-2 #{item.index_max}
+                            td.p-2 #{item.price}
+                            td.p-2 
+                                a(href="config/delete/"+item._id class="text-bold mr-2") Delete
+                                a(href="config/edit/"+item._id class="text-bold") Edit
+                        

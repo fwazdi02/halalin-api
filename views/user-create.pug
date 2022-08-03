@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    div.p-6
+        div.bg-white.p-6.rounded-lg
+            p.text-xl.font-bold.mb-8 Welcome, #{username} 
+            include navbar.pug
+            form(action="/dashboard/user/create", method="post" class="w-1/3")
+                p.text-lg.mb-4.font-bold Create User
+                div.my-4.text-gray-500
+                
+                    if message 
+                        div.bg-red-200.px-3.py-2.my-4.rounded
+                            p.m-0=message 
+
+                    input(type="hidden", name="_csrf" "value"=csrfToken)
+                    div.mb-3
+                        label.mb-2.block.font-bold Name 
+                        input(type='text' name='name' placeholder='Name' class='block w-full rounded border border-solid border-gray-200 px-3 py-2') 
+                    div.mb-3
+                        label.mb-2.block.font-bold Email 
+                        input(type='email' name='email' placeholder='Email' class='block w-full rounded border border-solid border-gray-200 px-3 py-2') 
+                    div.mb-3
+                        label.mb-2.block.font-bold Password 
+                        input(type='password' name='password' placeholder='******' class='block w-full rounded border border-solid border-gray-200 px-3 py-2')
+
+                    button(type="submit" class="w-full py-2 px-4 rounded-lg bg-blue-200 font-bold text-black") Submit 

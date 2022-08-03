@@ -3,17 +3,20 @@ const express = require("express")
 const session = require("express-session")
 const path = require("path")
 const cookieParser = require("cookie-parser")
+const cookieSession = require("cookie-session")
 const cors = require("cors")
 const bodyParser = require("body-parser")
 const logger = require("morgan")
 const csrf = require("csurf")
 
 require("./db")
-
+const app = express()
+const apiRouter = require("./routes/api")
 const indexRouter = require("./routes/index")
 
-const app = express()
+const dashboardController = require("./controllers/DashboardController")
 
+const api = createApiRouter()
 app.use(cors())
 
 // view engine setup
@@ -25,19 +28,29 @@ app.use(logger("dev"))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
+// app.use(
+//     session({
+//         cookie: { secure: process.env.isHttps === "true", maxAge: 36000000 },
+//         saveUninitialized: false,
+//         resave: false,
+//         secret: "super-super-secret"
+//     })
+// )
 app.use(
-    session({
-        cookie: { secure: process.env.isHttps === "true", maxAge: 36000000 },
-        saveUninitialized: false,
-        resave: false,
-        secret: "super-secret"
+    cookieSession({
+        name: "session",
+        keys: ["super-super-secret"],
+        // Cookie Options
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
     })
 )
+
+app.use("/api", api)
 app.use(csrf({ cookie: true }))
-if (app.get("env") === "production") {
-    // Serve secure cookies, requires HTTPS
-    session.cookie.secure = true
-}
+// if (app.get("env") === "production") {
+//     // Serve secure cookies, requires HTTPS
+//     session.cookie.secure = true
+// }
 
 app.use(function (req, res, next) {
     var token = req.csrfToken()
@@ -45,7 +58,15 @@ app.use(function (req, res, next) {
     res.locals.csrfToken = token
     next()
 })
+
 app.use("/", indexRouter)
+app.use("/dashboard", dashboardController)
+
+function createApiRouter() {
+    var router = new express.Router()
+    router.use("/", apiRouter)
+    return router
+}
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {

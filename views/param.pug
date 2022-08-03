@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    div.p-6
+        div.bg-white.p-6.rounded-lg
+            p.text-xl.font-bold.mb-8 Welcome, #{username} 
+            include navbar.pug
+            p.text-lg.font-bold.mb-4.mt-12 Table Param
+                a(href="param/create" class="bg-blue-200 px-3 py-2 rounded-lg ml-5") Create Param 
+            table.w-full.mb-4
+                tr
+                    td.p-2.font-bold ID 
+                    td.p-2.font-bold Key
+                    td.p-2.font-bold Description
+                    td.p-2.font-bold Action
+                if data
+                    each item in data
+                        tr
+                            td.p-2 #{item._id}
+                            td.p-2 #{item.param_key}
+                            td.p-2 #{item.description}
+                            td.p-2 
+                                a(href="param/delete/"+item._id class="text-bold mr-2") Delete
+                                a(href="param/edit/"+item._id class="text-bold") Edit
+                        

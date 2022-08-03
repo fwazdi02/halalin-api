@@ -1,6 +1,6 @@
 var express = require("express")
-const bcrypt = require("bcrypt")
 var app = express()
+const bcrypt = require("bcrypt")
 const { User } = require("../models/User")
 const { LoginValidation, UserCreateValidation, UserDeleteValidation } = require("../validation/VUser")
 
@@ -33,6 +33,8 @@ app.delete("/", async (req, res) => {
 })
 
 app.post("/", async (req, res) => {
+    console.log(req.body)
+
     const validate = UserCreateValidation.validate(req.body)
     if (validate.error) {
         const errors = getValidationError(validate.error.details)

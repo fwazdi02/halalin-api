@@ -12,11 +12,13 @@ const getValidationError = (details) => {
     return errors
 }
 
-const apiRouter = require("./api")
-router.use("/api", apiRouter)
-
 router.get("/", function (req, res) {
     res.render("index", { title: "Api-Halalin" })
+})
+
+router.post("/logout", function (req, res) {
+    req.session = null
+    res.redirect("/login")
 })
 
 router.get("/login", function (req, res) {

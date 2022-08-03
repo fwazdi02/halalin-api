@@ -10,7 +10,7 @@ const calculateController = require("../controllers/CalculateController")
 
 router.use("/user", userController)
 router.use("/product", productController)
-router.use("/product-config", productConfigController)
+router.use("/meta-product-config", productConfigController)
 router.use("/meta-param", paramController)
 router.use("/meta-config", configController)
 router.use("/calculate", calculateController)

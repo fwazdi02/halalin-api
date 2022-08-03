@@ -1,0 +1,13 @@
+div#navbar.flex.justify-between.mb-6
+    div.flex.gap-2
+        a(href="/dashboard/user" class="bg-blue-200 px-3 py-2 rounded-lg font-bold") User 
+        a(href="/dashboard/product" class="bg-blue-200 px-3 py-2 rounded-lg font-bold") Product 
+        a(href="/dashboard/product-config" class="bg-blue-200 px-3 py-2 rounded-lg font-bold") Product-Config 
+        a(href="/dashboard/config" class="bg-blue-200 px-3 py-2 rounded-lg font-bold") Config 
+        a(href="/dashboard/param" class="bg-blue-200 px-3 py-2 rounded-lg font-bold") Param 
+
+    div.block
+        form(action="/logout", method="post")
+            input(type="hidden", name="_csrf" "value"=csrfToken)
+            button(type="submit" class="py-2 px-3 rounded-lg font-bold text-black") Logout 
+            
