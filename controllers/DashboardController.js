@@ -129,8 +129,28 @@ app.post("/param/create", async (req, res) => {
 app.get("/config", async (req, res) => {
     const username = req.session.user.name ?? "Admin"
     const data = await Config.find().populate("param_id")
-    console.log(data)
     res.render("config", { username: username, data })
+})
+
+app.get("/config/edit/:id", async (req, res) => {
+    const username = req.session.user.name ?? "Admin"
+    const id = req.params.id
+    const data = await Config.findById(id).populate("param_id")
+    console.log(id, data)
+    const ddl_param = await Param.find()
+    res.render("config-edit", { username: username, single: data, ddl_param })
+})
+
+app.post("/config/edit/:id", async (req, res) => {
+    const username = req.session.user.name ?? "Admin"
+    const id = req.params.id
+    console.log(req.body)
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+        // const param = Param.findOne({key:req.body_})
+        const data = await Config.findOneAndUpdate({ id: id }, { ...req.body }).populate("param_id")
+        console.log(data)
+        res.redirect("/dashboard/config")
+    }
 })
 
 app.get("/config/delete/:id", async (req, res) => {
