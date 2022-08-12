@@ -5,6 +5,7 @@ const { Config } = require("../models/Config")
 const { ProductValidation, ProductDeleteValidation } = require("../validation/VProduct")
 const { CalculateValidation } = require("../validation/VCalculate")
 const { resolveConfig } = require("prettier")
+const { ProductConfig } = require("../models/ProductConfig")
 
 const getValidationError = (details) => {
     let errors = details.map((item) => {
@@ -121,9 +122,18 @@ app.post("/", async (req, res) => {
         res.json({ success: false, message: "Product doesn't exist" })
     }
 
-    const config = await Config.find({ product_id: product._id }).populate("param_id")
-    if (!config) {
-        res.json({ success: false, message: "Config doesn't exist" })
+    const arrProductConfig = await ProductConfig.find({ product_id: product._id })
+        .select("config_id")
+        .populate("config_id")
+        .then((data) => {
+            return data.reduce(function (acc, obj) {
+                acc.push(obj.config_id.id)
+                return acc
+            }, [])
+        })
+    const config = await Config.find({ product_id: product._id, _id: { $in: arrProductConfig } }).populate("param_id")
+    if (config.length <= 0) {
+        res.json({ success: false, message: "Product Config Unset" })
     }
 
     let _set = new Set()
@@ -135,10 +145,15 @@ app.post("/", async (req, res) => {
     await calculateValidate(validation, details)
         .then(async () => {
             const _params = await getParam(validation, details, product)
+            const grand_total = _params.reduce(function (acc, obj) {
+                acc += obj.total
+                return acc
+            }, 0)
             const data = {
                 product_code: product.code,
                 product_name: product.name,
-                details: _params
+                details: _params,
+                grand_total
             }
             res.json({ success: true, message: "Success Calculate", data })
         })

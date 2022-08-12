@@ -11,7 +11,15 @@ const getValidationError = (details) => {
 }
 
 app.get("/", async (req, res) => {
-    const products = await Product.find()
+    const is_umkm = req.query.umkm
+    let products = []
+    if (is_umkm == "true") {
+        products = await Product.find({ is_umkm: true })
+    } else if (is_umkm == "false") {
+        products = await Product.find({ is_umkm: false })
+    } else {
+        products = await Product.find()
+    }
     res.json({ success: true, message: "Success", data: products })
 })
 
@@ -38,8 +46,8 @@ app.post("/", (req, res) => {
         res.json({ success: false, message: errors })
         throw validate.error
     }
-    const { name, code } = req.body
-    const product = new Product({ name, code })
+    const { name, code, is_umkm } = req.body
+    const product = new Product({ name, code, is_umkm })
     product.save((err, doc) => {
         if (err) {
             console.log(err)

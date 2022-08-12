@@ -6,7 +6,8 @@ const productSchema = new Schema(
         name: String,
         code: { type: String, unique: true },
         description: { type: String, default: "" },
-        icon: { type: String, default: "" }
+        image: { type: String, default: "" },
+        is_umkm: { type: Boolean, default: false }
     },
     {
         toJSON: { virtuals: true },
